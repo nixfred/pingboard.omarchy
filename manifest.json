@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "id": "nixfred.pingboard",
+  "name": "Pingboard",
+  "version": "1.0.0",
+  "author": "nixfred",
+  "license": "MIT",
+  "description": "Live latency, jitter and loss to your gateway, the internet, DNS and your tailnet hosts, with a verdict that says where the problem is: LAN, ISP, DNS or tailnet.",
+  "kinds": [
+    "service",
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "service": "Service.qml",
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Pingboard",
+    "description": "A health dot and the internet round trip in ms. Click for per-target sparklines, loss, jitter and the LAN / ISP / DNS / tailnet verdict.",
+    "category": "Network",
+    "aliases": ["ping", "latency", "network", "pingboard", "jitter", "loss", "isp"],
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "intervalSec": 5,
+      "tailnetHosts": "vic,fnix,blu",
+      "showMs": true
+    },
+    "schema": [
+      {
+        "key": "intervalSec",
+        "type": "integer",
+        "label": "Probe interval (seconds)",
+        "description": "One ping per target per interval. 5 s is about 0.2 KB/s total.",
+        "min": 2,
+        "max": 60,
+        "defaultValue": 5
+      },
+      {
+        "key": "tailnetHosts",
+        "type": "string",
+        "label": "Tailnet hosts",
+        "description": "Comma-separated tailnet machine names to watch, resolved via tailscale ip.",
+        "defaultValue": "vic,fnix,blu"
+      },
+      {
+        "key": "showMs",
+        "type": "boolean",
+        "label": "Show ms on the bar",
+        "description": "Internet round trip beside the dot. Off leaves just the dot.",
+        "defaultValue": true
+      }
+    ]
+  },
+  "repository": "https://github.com/nixfred/pingboard.omarchy",
+  "homepage": "https://nixfred.com"
+}
