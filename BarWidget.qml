@@ -2,9 +2,8 @@ import QtQuick
 import Quickshell
 import qs.Commons
 import qs.Ui
-
-// A health dot plus the internet round trip. Accent = healthy, a blend of
-// accent and urgent = degraded, urgent = down. All colours come from the
+// A health dot plus the internet round trip. Theme accent = healthy, fixed
+// amber = degraded, fixed red = down (themes may map urgent to green).
 // active theme.
 BarWidget {
   id: root
@@ -23,8 +22,9 @@ BarWidget {
   readonly property color foreground: bar ? bar.foreground : Color.foreground
 
   readonly property color dotColor: !ready ? Util.alpha(foreground, 0.3)
-    : level === "down" ? Color.urgent
-    : level === "warn" ? Qt.tint(Color.accent, Util.alpha(Color.urgent, 0.55))
+    : level === "down" ? "#ff4d5e"
+    // Fixed amber/red: some themes map urgent to green, so status never derives from it.
+    : level === "warn" ? "#f5a623"
     : Color.accent
 
   readonly property string msText: {
@@ -80,7 +80,7 @@ BarWidget {
         visible: root.showMs
         anchors.verticalCenter: parent.verticalCenter
         text: root.msText
-        color: root.level === "down" ? Color.urgent : root.foreground
+        color: root.level === "down" ? "#ff4d5e" : root.foreground
         font.family: root.bar ? root.bar.fontFamily : Style.font.family
         font.pixelSize: Style.font.bodySmall
       }

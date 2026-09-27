@@ -20,7 +20,10 @@ Panel {
   readonly property color foreground: widget.bar ? widget.bar.foreground : Color.foreground
   readonly property color dim: Util.alpha(foreground, 0.62)
   readonly property color faint: Util.alpha(foreground, 0.10)
-  readonly property color warnColor: Qt.tint(Color.accent, Util.alpha(Color.urgent, 0.55))
+  // Fixed status colours: the palette has no warning token, and some themes
+  // map red/urgent to green (e.g. #50f872), so neither can be derived.
+  readonly property color downColor: "#ff4d5e"
+  readonly property color warnColor: "#f5a623"
   readonly property string fontFamily: widget.bar ? widget.bar.fontFamily : Style.font.family
   readonly property string mono: "monospace"
 
@@ -28,9 +31,9 @@ Panel {
   readonly property int rowH: Style.space(38)
   readonly property int maxRows: 10
 
-  function levelColor(l) { return l === "down" ? Color.urgent : l === "warn" ? panel.warnColor : Color.accent }
+  function levelColor(l) { return l === "down" ? panel.downColor : l === "warn" ? panel.warnColor : Color.accent }
   function msColor(t) {
-    if (!t || t.last === null) return Color.urgent
+    if (!t || t.last === null) return panel.downColor
     if (t.recentLoss > 15) return panel.warnColor
     return panel.foreground
   }
@@ -253,7 +256,7 @@ Panel {
                 Layout.bottomMargin: Style.space(5)
                 property var hist: modelData.history
                 property color lineColor: Color.accent
-                property color lossColor: Color.urgent
+                property color lossColor: panel.downColor
                 onHistChanged: requestPaint()
                 onWidthChanged: requestPaint()
                 onPaint: {
@@ -322,7 +325,7 @@ Panel {
                 Layout.preferredWidth: Style.space(56)
                 horizontalAlignment: Text.AlignRight
                 text: modelData.loss + "%"
-                color: modelData.loss > 15 ? Color.urgent : modelData.loss > 0 ? panel.warnColor : panel.dim
+                color: modelData.loss > 15 ? panel.downColor : modelData.loss > 0 ? panel.warnColor : panel.dim
                 font.family: panel.mono
                 font.pixelSize: Style.font.bodySmall
                 font.bold: modelData.loss > 0

@@ -31,7 +31,7 @@ Looks at the last 30 s: gateway dead means **LAN**; gateway fine but both public
 
 ## Panel
 
-Everything fits on one screen. The target list is a bounded box that only scrolls in place once you watch more than ten targets. Hover a column head, row tag or sparkline for detail. Colours follow the active Omarchy theme: accent is healthy, urgent is down.
+Everything fits on one screen. The target list is a bounded box that only scrolls in place once you watch more than ten targets. Hover a column head, row tag or sparkline for detail. Colours follow the active Omarchy theme: accent is healthy. Degraded is a fixed amber and down is a fixed red, because some themes map their "red" to green.
 
 ## Install
 
